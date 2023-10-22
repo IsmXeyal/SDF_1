@@ -11,11 +11,11 @@ public partial class Form2 : Form
         InitializeComponent();
     }
 
-    private Label Labell;
+    private Label? Labell;
     Color randomColor = Color.FromArgb(Random.Shared.Next(256), Random.Shared.Next(256), Random.Shared.Next(256));
-    private Models.Rectangle rectangle;
-    private Circle circle;
-    private Square square;
+    private Models.Rectangle? rectangle;
+    private Circle? circle;
+    private Square? square;
     public Form2(string selectedShape)
     {
         InitializeComponent();
@@ -175,6 +175,7 @@ public partial class Form2 : Form
                 double side;
                 if (double.TryParse(textBox1.Text, out side))
                 {
+                    if (Labell != null)
                     {
                         panel2.Controls.Remove(Labell);
                         Labell.Dispose();
