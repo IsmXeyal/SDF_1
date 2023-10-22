@@ -210,7 +210,7 @@ public partial class Form2 : Form
         panel2.Enabled = true;
     }
 
-    private void Panel2_MouseDown(object sender, MouseEventArgs e)
+    private void Panel2_MouseDown(object? sender, MouseEventArgs e)
     {
         if (e.Button == MouseButtons.Left)
         {
@@ -223,7 +223,7 @@ public partial class Form2 : Form
         }
     }
 
-    private void Panel2_MouseUp(object sender, MouseEventArgs e)
+    private void Panel2_MouseUp(object? sender, MouseEventArgs e)
     {
         if (e.Button == MouseButtons.Left)
         {

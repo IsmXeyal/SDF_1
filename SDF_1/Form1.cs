@@ -17,7 +17,7 @@ public partial class Form1 : Form
         {
             this.Hide();
             string? selectedShape = shapeBox.SelectedItem as string;
-            Form2 form2 = new(selectedShape);
+            Form2 form2 = new(selectedShape!);
             form2.Show();
         }
     }
