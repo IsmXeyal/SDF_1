@@ -1,7 +1,6 @@
 ﻿using SDF_1.Models;
 using SDF_1.Properties;
 using System.Drawing.Drawing2D;
-using System.Windows.Forms;
 
 namespace SDF_1;
 public partial class Form2 : Form
