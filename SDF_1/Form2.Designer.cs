@@ -74,7 +74,7 @@
             // 
             // labell
             // 
-            labell.BackColor = Color.LightGray;
+            labell.BackColor = Color.NavajoWhite;
             labell.Font = new Font("Calibri", 15.75F, FontStyle.Bold, GraphicsUnit.Point);
             labell.Location = new Point(342, 21);
             labell.Name = "labell";
@@ -107,6 +107,7 @@
             // 
             // metric
             // 
+            metric.BackColor = Color.Tan;
             metric.Font = new Font("Calibri", 11.25F, FontStyle.Bold, GraphicsUnit.Point);
             metric.Location = new Point(26, 79);
             metric.Name = "metric";
@@ -117,8 +118,9 @@
             // 
             // width
             // 
+            width.BackColor = Color.Tan;
             width.Font = new Font("Calibri", 11.25F, FontStyle.Bold, GraphicsUnit.Point);
-            width.Location = new Point(26, 132);
+            width.Location = new Point(26, 139);
             width.Name = "width";
             width.Size = new Size(78, 26);
             width.TabIndex = 5;
@@ -127,8 +129,9 @@
             // 
             // length
             // 
+            length.BackColor = Color.Tan;
             length.Font = new Font("Calibri", 11.25F, FontStyle.Bold, GraphicsUnit.Point);
-            length.Location = new Point(26, 184);
+            length.Location = new Point(26, 195);
             length.Name = "length";
             length.Size = new Size(78, 26);
             length.TabIndex = 6;
@@ -140,7 +143,7 @@
             metricbox.DropDownStyle = ComboBoxStyle.DropDownList;
             metricbox.Font = new Font("Calibri", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
             metricbox.FormattingEnabled = true;
-            metricbox.Location = new Point(148, 79);
+            metricbox.Location = new Point(144, 79);
             metricbox.Name = "metricbox";
             metricbox.Size = new Size(75, 26);
             metricbox.TabIndex = 7;
@@ -148,28 +151,30 @@
             // textBox1
             // 
             textBox1.Font = new Font("Calibri", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
-            textBox1.Location = new Point(148, 132);
+            textBox1.Location = new Point(144, 139);
             textBox1.Name = "textBox1";
-            textBox1.Size = new Size(100, 26);
+            textBox1.Size = new Size(104, 26);
             textBox1.TabIndex = 8;
+            textBox1.Click += textBox1_Click;
             textBox1.TextChanged += textBox1_TextChanged;
             // 
             // textBox2
             // 
             textBox2.Font = new Font("Calibri", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
-            textBox2.Location = new Point(148, 184);
+            textBox2.Location = new Point(144, 196);
             textBox2.Name = "textBox2";
-            textBox2.Size = new Size(100, 26);
+            textBox2.Size = new Size(104, 26);
             textBox2.TabIndex = 9;
+            textBox2.Click += textBox2_Click;
             textBox2.TextChanged += textBox2_TextChanged;
             // 
             // calculate
             // 
             calculate.BackColor = Color.OrangeRed;
             calculate.Font = new Font("Calibri", 15.75F, FontStyle.Bold, GraphicsUnit.Point);
-            calculate.Location = new Point(26, 257);
+            calculate.Location = new Point(26, 255);
             calculate.Name = "calculate";
-            calculate.Size = new Size(232, 34);
+            calculate.Size = new Size(222, 34);
             calculate.TabIndex = 10;
             calculate.Text = "Calculate";
             calculate.UseVisualStyleBackColor = false;
@@ -298,6 +303,7 @@
             panel2.Name = "panel2";
             panel2.Size = new Size(760, 227);
             panel2.TabIndex = 13;
+            panel2.Paint += panel2_Paint;
             // 
             // info_box
             // 

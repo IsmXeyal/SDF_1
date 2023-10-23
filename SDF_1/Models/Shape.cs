@@ -1,22 +1,52 @@
 ﻿namespace SDF_1.Models;
 
-public abstract class Shape
+interface IMovable
+{
+    void MoveUp();
+    void MoveDown();
+    void MoveRight();
+    void MoveLeft();
+}
+
+public abstract class Shape : IMovable
 {
     public Color Color { get; set; }
     public bool Filled { get; set; }
+    public Point Location { get; set; }
 
-    public Shape(Color color, bool filled)
+    public Shape(Color color, bool filled, Point location)
     {
         Color = color;
         Filled = filled;
+        Location = location;
     }
 
     public abstract double GetArea();
     public abstract double GetPerimeter();
 
+    public virtual void MoveUp()
+    {
+        Location = new Point(Location.X, Location.Y - 1);
+    }
+
+    public virtual void MoveDown()
+    {
+        Location = new Point(Location.X, Location.Y + 1);
+    }
+
+    public virtual void MoveRight()
+    {
+        Location = new Point(Location.X + 1, Location.Y);
+    }
+
+    public virtual void MoveLeft()
+    {
+        Location = new Point(Location.X - 1, Location.Y);
+    }
+
     public override string ToString()
     {
-        return $" Color: \t\t{Color.Name}\n Filled: \t\t{Filled}\n";
+        return $" Color: \t\t{Color.Name}\n Filled: \t\t{Filled}\n Location: \t{Location}\n";
     }
 }
 
@@ -36,15 +66,15 @@ public class Circle : Shape
         }
     }
 
-    public Circle(Color color, bool filled, double radius) 
-        : base(color, filled)
+    public Circle(Color color, bool filled, double radius, Point location)
+        : base(color, filled, location)
     {
         Radius = radius;
     }
 
     public override double GetArea()
     {
-        return Math.Round(Math.PI,2) * Math.Pow(Radius, 2);
+        return Math.Round(Math.PI, 2) * Math.Pow(Radius, 2);
     }
 
     public override double GetPerimeter()
@@ -87,8 +117,8 @@ public class Rectangle : Shape
         }
     }
 
-    public Rectangle(Color color, bool filled, double width, double height) 
-        : base(color, filled)
+    public Rectangle(Color color, bool filled, double width, double height, Point location)
+        : base(color, filled, location)
     {
         Width = width;
         Height = height;
@@ -110,11 +140,10 @@ public class Rectangle : Shape
     }
 }
 
-
 public class Square : Rectangle
 {
-    public Square(Color color, bool filled, double side) 
-        : base(color, filled, side, side)
+    public Square(Color color, bool filled, double side, Point location)
+        : base(color, filled, side, side, location)
     {
     }
 }

@@ -1,21 +1,23 @@
 ﻿using SDF_1.Models;
 using SDF_1.Properties;
 using System.Drawing.Drawing2D;
+using System.Windows.Forms;
 
 namespace SDF_1;
 public partial class Form2 : Form
 {
-    public Point startLocation;
     public Form2()
     {
         InitializeComponent();
     }
 
+    public Point startLocation;
     private Label? Labell;
     Color randomColor = Color.FromArgb(Random.Shared.Next(256), Random.Shared.Next(256), Random.Shared.Next(256));
     private Models.Rectangle? rectangle;
     private Circle? circle;
     private Square? square;
+    private bool processKeys;
     public Form2(string selectedShape)
     {
         InitializeComponent();
@@ -65,6 +67,13 @@ public partial class Form2 : Form
 
         isPictureVisible = !isPictureVisible;
     }
+
+    private void panel2_Paint(object sender, PaintEventArgs e)
+    {
+        using Pen panelBorderPen = new(Color.Red, 5);
+        e.Graphics.DrawRectangle(panelBorderPen, 0, 0, panel2.Width - 1, panel2.Height - 1);
+    }
+
     private void backBox_Click(object sender, EventArgs e)
     {
         this.Hide();
@@ -108,94 +117,102 @@ public partial class Form2 : Form
         calculate.Enabled = false;
         Hide_box.Enabled = false;
         panel2.Enabled = false;
+        processKeys = false;
 
         string? selectedMetric = metricbox.SelectedItem as string;
-        switch (selectedShape)
+        try
         {
-            case "Rectangle":
-                double width, height;
-                if (double.TryParse(textBox1.Text, out width) && double.TryParse(textBox2.Text, out height))
-                {
-                    if (Labell != null)
+            switch (selectedShape)
+            {
+                case "Rectangle":
+                    double width, height;
+                    if (double.TryParse(textBox1.Text, out width) && double.TryParse(textBox2.Text, out height))
                     {
-                        panel2.Controls.Remove(Labell);
-                        Labell.Dispose();
+                        if (Labell != null)
+                        {
+                            panel2.Controls.Remove(Labell);
+                            Labell.Dispose();
+                        }
+
+                        Labell = new Label()
+                        {
+                            Location = new Point((panel2.Width - (int)width) / 2, (panel2.Height - (int)height) / 2),
+                            Size = new Size((int)width, (int)height),
+                            BorderStyle = BorderStyle.FixedSingle,
+                            BackColor = randomColor,
+                        };
+
+                        panel2.Controls.Add(Labell);
+                        rectangle = new(randomColor, true, width, height, Location);
+                        area_ans.Text = rectangle.GetArea().ToString();
+                        met_area.Text = $"{selectedMetric}²";
+                        perim_ans.Text = rectangle.GetPerimeter().ToString();
+                        per_met.Text = $"{selectedMetric}";
                     }
-
-                    Labell = new Label()
+                    break;
+                case "Circle":
+                    double radius;
+                    if (double.TryParse(textBox1.Text, out radius))
                     {
-                        Location = new Point((panel2.Width - (int)width) / 2, (panel2.Height - (int)height) / 2),
-                        Size = new Size((int)width, (int)height),
-                        BorderStyle = BorderStyle.FixedSingle,
-                        BackColor = randomColor,
-                    };
+                        if (Labell != null)
+                        {
+                            panel2.Controls.Remove(Labell);
+                            Labell.Dispose();
+                        }
 
-                    panel2.Controls.Add(Labell);
-                    rectangle = new(randomColor, true, width, height);
-                    area_ans.Text = rectangle.GetArea().ToString();
-                    met_area.Text = $"{selectedMetric}²";
-                    perim_ans.Text = rectangle.GetPerimeter().ToString();
-                    per_met.Text = $"{selectedMetric}";
-                }
-                break;
-            case "Circle":
-                double radius;
-                if (double.TryParse(textBox1.Text, out radius))
-                {
-                    if (Labell != null)
-                    {
-                        panel2.Controls.Remove(Labell);
-                        Labell.Dispose();
+                        Labell = new Label()
+                        {
+                            Location = new Point((panel2.Width - (int)(radius * 2)) / 2, (panel2.Height - (int)(radius * 2)) / 2),
+                            Size = new Size((int)(radius * 2), (int)(radius * 2)),
+                            BorderStyle = BorderStyle.FixedSingle,
+                            BackColor = randomColor,
+                        };
+
+                        panel2.Controls.Add(Labell);
+
+                        GraphicsPath gp = new();
+                        gp.AddEllipse(0, 0, Labell.Width, Labell.Height);
+
+                        Region rg = new(gp);
+                        Labell.Region = rg;
+
+                        circle = new(randomColor, true, radius, Location);
+                        area_ans.Text = Math.Round(circle.GetArea(), 2).ToString();
+                        met_area.Text = $"{selectedMetric}²";
+                        perim_ans.Text = Math.Round(circle.GetPerimeter(), 2).ToString();
+                        per_met.Text = $"{selectedMetric}";
                     }
-
-                    Labell = new Label()
+                    break;
+                case "Square":
+                    double side;
+                    if (double.TryParse(textBox1.Text, out side))
                     {
-                        Location = new Point((panel2.Width - (int)(radius * 2)) / 2, (panel2.Height - (int)(radius * 2)) / 2),
-                        Size = new Size((int)(radius * 2), (int)(radius * 2)),
-                        BorderStyle = BorderStyle.FixedSingle,
-                        BackColor = randomColor,
-                    };
+                        if (Labell != null)
+                        {
+                            panel2.Controls.Remove(Labell);
+                            Labell.Dispose();
+                        }
 
-                    panel2.Controls.Add(Labell);
-
-                    GraphicsPath gp = new();
-                    gp.AddEllipse(0, 0, Labell.Width, Labell.Height);
-
-                    Region rg = new(gp);
-                    Labell.Region = rg;
-
-                    circle = new(randomColor, true, radius);
-                    area_ans.Text = Math.Round(circle.GetArea(), 2).ToString();
-                    met_area.Text = $"{selectedMetric}²";
-                    perim_ans.Text = Math.Round(circle.GetPerimeter(), 2).ToString();
-                    per_met.Text = $"{selectedMetric}";
-                }
-                break;
-            case "Square":
-                double side;
-                if (double.TryParse(textBox1.Text, out side))
-                {
-                    if (Labell != null)
-                    {
-                        panel2.Controls.Remove(Labell);
-                        Labell.Dispose();
+                        Labell = new Label()
+                        {
+                            Location = new Point((panel2.Width - (int)side) / 2, (panel2.Height - (int)side) / 2),
+                            Size = new Size((int)side, (int)side),
+                            BorderStyle = BorderStyle.FixedSingle,
+                            BackColor = randomColor,
+                        };
+                        panel2.Controls.Add(Labell);
+                        square = new(randomColor, true, side, Location);
+                        area_ans.Text = square.GetArea().ToString();
+                        met_area.Text = $"{selectedMetric}²";
+                        perim_ans.Text = square.GetPerimeter().ToString();
+                        per_met.Text = $"{selectedMetric}";
                     }
-
-                    Labell = new Label()
-                    {
-                        Location = new Point((panel2.Width - (int)side) / 2, (panel2.Height - (int)side) / 2),
-                        Size = new Size((int)side, (int)side),
-                        BorderStyle = BorderStyle.FixedSingle,
-                        BackColor = randomColor,
-                    };
-                    panel2.Controls.Add(Labell);
-                    square = new(randomColor, true, side);
-                    area_ans.Text = square.GetArea().ToString();
-                    met_area.Text = $"{selectedMetric}²";
-                    perim_ans.Text = square.GetPerimeter().ToString();
-                    per_met.Text = $"{selectedMetric}";
-                }
-                break;
+                    break;
+            }
+        }
+        catch (Exception ex)
+        {
+            MessageBox.Show($" {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
     }
 
@@ -208,7 +225,11 @@ public partial class Form2 : Form
         calculate.Enabled = true;
         Hide_box.Enabled = true;
         panel2.Enabled = true;
+        processKeys = true;
     }
+
+    private void textBox1_Click(object sender, EventArgs e) => processKeys = false;
+    private void textBox2_Click(object sender, EventArgs e) => processKeys = false;
 
     private void Panel2_MouseDown(object? sender, MouseEventArgs e)
     {
@@ -248,9 +269,8 @@ public partial class Form2 : Form
             textBox2.Text = height.ToString();
         }
     }
-    private void info_box_Click(object sender, EventArgs e)
+    private void info_box_Click(object? sender, EventArgs e)
     {
-
         string selectedShape = labell.Text;
         string shapeDetails = "";
 
@@ -281,6 +301,54 @@ public partial class Form2 : Form
             MessageBox.Show(shapeDetails, "Shape Details", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
     }
+
+    protected override bool ProcessCmdKey(ref Message msg, Keys keyData)
+    {
+        if (processKeys && Labell != null)
+        {
+            int moveAmount = 5;
+
+            IMovable? movableShape = null;
+
+            if (rectangle != null)
+                movableShape = rectangle;
+            else if (circle != null)
+                movableShape = circle;
+            else if (square != null)
+                movableShape = square;
+
+            if (movableShape != null)
+            {
+                int x = Labell.Location.X;
+                int y = Labell.Location.Y;
+
+                switch (keyData)
+                {
+                    case Keys.Up:
+                        y = Math.Max(y - moveAmount, moveAmount);
+                        movableShape.MoveUp();
+                        break;
+                    case Keys.Down:
+                        y = Math.Min(y + moveAmount, panel2.Height - Labell.Height - moveAmount);
+                        movableShape.MoveDown();
+                        break;
+                    case Keys.Left:
+                        x = Math.Max(x - moveAmount, moveAmount);
+                        movableShape.MoveLeft();
+                        break;
+                    case Keys.Right:
+                        x = Math.Min(x + moveAmount, panel2.Width - Labell.Width - moveAmount);
+                        movableShape.MoveRight();
+                        break;
+                }
+
+                Labell.Location = new Point(x, y);
+                return true;
+            }
+        }
+        return base.ProcessCmdKey(ref msg, keyData);
+    }
+
 
     protected override void OnFormClosing(FormClosingEventArgs e)
     {
