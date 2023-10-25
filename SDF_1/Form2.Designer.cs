@@ -52,6 +52,8 @@
             backBox = new PictureBox();
             panel2 = new Panel();
             info_box = new PictureBox();
+            filled = new Label();
+            yesno = new CheckBox();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox2).BeginInit();
             ((System.ComponentModel.ISupportInitialize)Hide_box).BeginInit();
@@ -109,7 +111,7 @@
             // 
             metric.BackColor = Color.Tan;
             metric.Font = new Font("Calibri", 11.25F, FontStyle.Bold, GraphicsUnit.Point);
-            metric.Location = new Point(26, 79);
+            metric.Location = new Point(26, 60);
             metric.Name = "metric";
             metric.Size = new Size(78, 26);
             metric.TabIndex = 4;
@@ -120,7 +122,7 @@
             // 
             width.BackColor = Color.Tan;
             width.Font = new Font("Calibri", 11.25F, FontStyle.Bold, GraphicsUnit.Point);
-            width.Location = new Point(26, 139);
+            width.Location = new Point(26, 162);
             width.Name = "width";
             width.Size = new Size(78, 26);
             width.TabIndex = 5;
@@ -131,7 +133,7 @@
             // 
             length.BackColor = Color.Tan;
             length.Font = new Font("Calibri", 11.25F, FontStyle.Bold, GraphicsUnit.Point);
-            length.Location = new Point(26, 195);
+            length.Location = new Point(26, 210);
             length.Name = "length";
             length.Size = new Size(78, 26);
             length.TabIndex = 6;
@@ -143,7 +145,7 @@
             metricbox.DropDownStyle = ComboBoxStyle.DropDownList;
             metricbox.Font = new Font("Calibri", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
             metricbox.FormattingEnabled = true;
-            metricbox.Location = new Point(144, 79);
+            metricbox.Location = new Point(144, 60);
             metricbox.Name = "metricbox";
             metricbox.Size = new Size(75, 26);
             metricbox.TabIndex = 7;
@@ -151,7 +153,7 @@
             // textBox1
             // 
             textBox1.Font = new Font("Calibri", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
-            textBox1.Location = new Point(144, 139);
+            textBox1.Location = new Point(144, 162);
             textBox1.Name = "textBox1";
             textBox1.Size = new Size(104, 26);
             textBox1.TabIndex = 8;
@@ -161,7 +163,7 @@
             // textBox2
             // 
             textBox2.Font = new Font("Calibri", 11.25F, FontStyle.Regular, GraphicsUnit.Point);
-            textBox2.Location = new Point(144, 196);
+            textBox2.Location = new Point(144, 212);
             textBox2.Name = "textBox2";
             textBox2.Size = new Size(104, 26);
             textBox2.TabIndex = 9;
@@ -172,7 +174,7 @@
             // 
             calculate.BackColor = Color.OrangeRed;
             calculate.Font = new Font("Calibri", 15.75F, FontStyle.Bold, GraphicsUnit.Point);
-            calculate.Location = new Point(26, 255);
+            calculate.Location = new Point(26, 267);
             calculate.Name = "calculate";
             calculate.Size = new Size(222, 34);
             calculate.TabIndex = 10;
@@ -316,12 +318,36 @@
             info_box.TabStop = false;
             info_box.Click += info_box_Click;
             // 
+            // filled
+            // 
+            filled.BackColor = Color.Tan;
+            filled.Font = new Font("Calibri", 11.25F, FontStyle.Bold, GraphicsUnit.Point);
+            filled.Location = new Point(26, 111);
+            filled.Name = "filled";
+            filled.Size = new Size(78, 26);
+            filled.TabIndex = 14;
+            filled.Text = "Filled";
+            filled.TextAlign = ContentAlignment.MiddleCenter;
+            // 
+            // yesno
+            // 
+            yesno.BackColor = Color.Salmon;
+            yesno.Font = new Font("Calibri", 11.25F, FontStyle.Bold, GraphicsUnit.Point);
+            yesno.Location = new Point(150, 111);
+            yesno.Name = "yesno";
+            yesno.Size = new Size(78, 26);
+            yesno.TabIndex = 15;
+            yesno.Text = "Yes/No";
+            yesno.UseVisualStyleBackColor = false;
+            // 
             // Form2
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.White;
             ClientSize = new Size(784, 561);
+            Controls.Add(yesno);
+            Controls.Add(filled);
             Controls.Add(panel2);
             Controls.Add(backBox);
             Controls.Add(panel1);
@@ -379,5 +405,7 @@
         private Label met_area;
         private Panel panel2;
         private PictureBox info_box;
+        private Label filled;
+        private CheckBox yesno;
     }
 }

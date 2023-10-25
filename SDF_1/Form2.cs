@@ -133,16 +133,35 @@ public partial class Form2 : Form
                             Labell.Dispose();
                         }
 
-                        Labell = new Label()
+                        if (yesno.Checked)
                         {
-                            Location = new Point((panel2.Width - (int)width) / 2, (panel2.Height - (int)height) / 2),
-                            Size = new Size((int)width, (int)height),
-                            BorderStyle = BorderStyle.FixedSingle,
-                            BackColor = randomColor,
-                        };
+                            Labell = new Label()
+                            {
+                                Location = new Point((panel2.Width - (int)width) / 2, (panel2.Height - (int)height) / 2),
+                                Size = new Size((int)width, (int)height),
+                                BorderStyle = BorderStyle.FixedSingle,
+                                BackColor = randomColor,
+                            };
+                        }
+                        else if (yesno.Checked == false)
+                        {
+                            Labell = new Label()
+                            {
+                                Location = new Point((panel2.Width - (int)width) / 2, (panel2.Height - (int)height) / 2),
+                                Size = new Size((int)width, (int)height),
+                                BorderStyle = BorderStyle.None,
+                                BackColor = Color.Transparent,
+                            };
+
+                            Labell.Paint += (sender, e) =>
+                            {
+                                using Pen borderPen = new(randomColor, 7);
+                                e.Graphics.DrawRectangle(borderPen, 0, 0, Labell.Width - 1, Labell.Height - 1);
+                            };
+                        }
 
                         panel2.Controls.Add(Labell);
-                        rectangle = new(randomColor, true, width, height, Location);
+                        rectangle = new(randomColor, yesno.Checked, width, height, Location);
                         area_ans.Text = rectangle.GetArea().ToString();
                         met_area.Text = $"{selectedMetric}²";
                         perim_ans.Text = rectangle.GetPerimeter().ToString();
@@ -159,13 +178,32 @@ public partial class Form2 : Form
                             Labell.Dispose();
                         }
 
-                        Labell = new Label()
+                        if (yesno.Checked)
                         {
-                            Location = new Point((panel2.Width - (int)(radius * 2)) / 2, (panel2.Height - (int)(radius * 2)) / 2),
-                            Size = new Size((int)(radius * 2), (int)(radius * 2)),
-                            BorderStyle = BorderStyle.FixedSingle,
-                            BackColor = randomColor,
-                        };
+                            Labell = new Label()
+                            {
+                                Location = new Point((panel2.Width - (int)(radius * 2)) / 2, (panel2.Height - (int)(radius * 2)) / 2),
+                                Size = new Size((int)(radius * 2), (int)(radius * 2)),
+                                BorderStyle = BorderStyle.FixedSingle,
+                                BackColor = randomColor,
+                            };
+                        }
+                        else
+                        {
+                            Labell = new Label()
+                            {
+                                Location = new Point((panel2.Width - (int)(radius * 2)) / 2, (panel2.Height - (int)(radius * 2)) / 2),
+                                Size = new Size((int)(radius * 2), (int)(radius * 2)),
+                                BorderStyle = BorderStyle.None,
+                                BackColor = Color.Transparent,
+                            };
+
+                            Labell.Paint += (sender, e) =>
+                            {
+                                using Pen borderPen = new(randomColor, 7);
+                                e.Graphics.DrawEllipse(borderPen, 0, 0, Labell.Width, Labell.Height);
+                            };
+                        }
 
                         panel2.Controls.Add(Labell);
 
@@ -175,7 +213,7 @@ public partial class Form2 : Form
                         Region rg = new(gp);
                         Labell.Region = rg;
 
-                        circle = new(randomColor, true, radius, Location);
+                        circle = new(randomColor, yesno.Checked, radius, Location);
                         area_ans.Text = Math.Round(circle.GetArea(), 2).ToString();
                         met_area.Text = $"{selectedMetric}²";
                         perim_ans.Text = Math.Round(circle.GetPerimeter(), 2).ToString();
@@ -192,15 +230,34 @@ public partial class Form2 : Form
                             Labell.Dispose();
                         }
 
-                        Labell = new Label()
+                        if (yesno.Checked)
                         {
-                            Location = new Point((panel2.Width - (int)side) / 2, (panel2.Height - (int)side) / 2),
-                            Size = new Size((int)side, (int)side),
-                            BorderStyle = BorderStyle.FixedSingle,
-                            BackColor = randomColor,
-                        };
+                            Labell = new Label()
+                            {
+                                Location = new Point((panel2.Width - (int)side) / 2, (panel2.Height - (int)side) / 2),
+                                Size = new Size((int)side, (int)side),
+                                BorderStyle = BorderStyle.FixedSingle,
+                                BackColor = randomColor,
+                            };
+                        }
+                        else
+                        {
+                            Labell = new Label()
+                            {
+                                Location = new Point((panel2.Width - (int)side) / 2, (panel2.Height - (int)side) / 2),
+                                Size = new Size((int)side, (int)side),
+                                BorderStyle = BorderStyle.None,
+                                BackColor = Color.Transparent,
+                            };
+
+                            Labell.Paint += (sender, e) =>
+                            {
+                                using Pen borderPen = new(randomColor, 7);
+                                e.Graphics.DrawRectangle(borderPen, 0, 0, Labell.Width - 1, Labell.Height - 1);
+                            };
+                        }
                         panel2.Controls.Add(Labell);
-                        square = new(randomColor, true, side, Location);
+                        square = new(randomColor, yesno.Checked, side, Location);
                         area_ans.Text = square.GetArea().ToString();
                         met_area.Text = $"{selectedMetric}²";
                         perim_ans.Text = square.GetPerimeter().ToString();
