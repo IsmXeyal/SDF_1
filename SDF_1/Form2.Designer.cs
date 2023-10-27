@@ -303,7 +303,7 @@
             panel2.Controls.Add(info_box);
             panel2.Location = new Point(12, 322);
             panel2.Name = "panel2";
-            panel2.Size = new Size(760, 227);
+            panel2.Size = new Size(760, 230);
             panel2.TabIndex = 13;
             panel2.Paint += panel2_Paint;
             // 

@@ -381,19 +381,19 @@ public partial class Form2 : Form
                 switch (keyData)
                 {
                     case Keys.Up:
-                        y = Math.Max(y - moveAmount, moveAmount);
+                        y = Math.Max(y - 1, moveAmount);
                         movableShape.MoveUp();
                         break;
                     case Keys.Down:
-                        y = Math.Min(y + moveAmount, panel2.Height - Labell.Height - moveAmount);
+                        y = Math.Min(y + 1, panel2.Height - Labell.Height - moveAmount);
                         movableShape.MoveDown();
                         break;
                     case Keys.Left:
-                        x = Math.Max(x - moveAmount, moveAmount);
+                        x = Math.Max(x - 1, moveAmount);
                         movableShape.MoveLeft();
                         break;
                     case Keys.Right:
-                        x = Math.Min(x + moveAmount, panel2.Width - Labell.Width - moveAmount);
+                        x = Math.Min(x + 1, panel2.Width - Labell.Width - moveAmount);
                         movableShape.MoveRight();
                         break;
                 }
